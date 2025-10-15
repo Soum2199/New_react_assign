@@ -1,9 +1,21 @@
 {
   "files": [],
   "compilerOptions": {
-    "strict": false,
-    "skipLibCheck": true
+     "strict": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "Node"
   },
+  "dependencies": {
+  "primereact": "^9.x",
+  "primeicons": "^6.x",
+  "primeflex": "^3.x",
+  "axios": "^1.x",
+  "react": "^18.x",
+  "react-dom": "^18.x"
+},
   "scripts": {
   "dev": "vite",
   "build": "vite build",

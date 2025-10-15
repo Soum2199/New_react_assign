@@ -6,14 +6,13 @@ import { Column } from "primereact/column";
 // import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
 import { Paginator } from "primereact/paginator";
 import type { PaginatorPageChangeEvent } from "primereact/paginator";
-
+// import { fetchArtworks } from "./Api";
 
 interface Artwork {
   id: number;
   title: string;
   place_of_origin: string;
   artist_display: string;
-  inscriptions: string;
   date_start: number;
   date_end: number;
 }
@@ -54,6 +53,14 @@ const ArtTable: React.FC = () => {
   const onPageChange = (e: PaginatorPageChangeEvent) => {
     const newPage = e.page + 1;
     setPage(newPage);
+
+    const newRows = e.rows;
+    setRowsPerPage(newRows);
+
+    // const newPage = event.page + 1;
+    // const newRows = event.rows;
+    // setPage(newPage);
+    // setRowsPerPage(newRows);
   };
 
   // Handle selection change
@@ -82,6 +89,13 @@ const ArtTable: React.FC = () => {
     setPersistedSelection(newPersisted);
   };
 
+// useEffect(() => {
+//     setLoading(true);
+//     fetchArtworks()
+//       .then(data => setArtworks(data))
+//       .finally(() => setLoading(false));
+//   }, []);
+
   return (
     <>
         <div className="card p-4">
@@ -101,7 +115,16 @@ const ArtTable: React.FC = () => {
             )}
           </div>
           {/* DataTable */}
-          <DataTable className="p-1 bg-indigo-100 hover:bg-slate-200" value={artworks} loading={loading} paginator={false} selection={currentSelection} onSelectionChange={onSelectionChange} dataKey="id" responsiveLayout="scroll">
+          {/* <DataTable className="p-1 bg-indigo-100 hover:bg-slate-200" value={artworks} loading={loading} paginator={false} selection={currentSelection} onSelectionChange={onSelectionChange} dataKey="id" responsiveLayout="scroll"> */}
+          {/* <DataTable<Artwork>  className="p-1 bg-indigo-100 hover:bg-slate-200"
+  value={artworks} loading={loading} paginator={false}
+  selection={currentSelection} onSelectionChange={(e) => setCurrentSelection(e.value as Artwork[])}
+  dataKey="id" responsiveLayout="scroll" selectionMode="multiple"> */}
+
+  <DataTable className="p-1 bg-indigo-100 hover:bg-slate-200" onSelectionChange={onSelectionChange}
+  value={artworks} loading={loading} paginator={false} selection={currentSelection}
+  // onSelectionChange={(e) => setCurrentSelection(e.value)}
+      selectionMode="multiple" dataKey="id" responsiveLayout="scroll">
             <Column selectionMode="multiple" className="p-0.5" headerStyle={{ width: "50px" }}></Column>
             <Column className="p-1 bg-gray-50" field="title" header="Title"></Column>
             <Column className="p-1 bg-gray-50" field="place_of_origin" header="Place Of Origin"></Column>
@@ -111,12 +134,7 @@ const ArtTable: React.FC = () => {
           </DataTable>
           {/* Paginator */}
           <Paginator first={(page - 1) * rowsPerPage} rows={rowsPerPage} totalRecords={totalRecords} rowsPerPageOptions={[6, 12, 24]}
-          onPageChange={ function(event) {
-    const newPage = event.page + 1;
-    const newRows = event.rows;
-    setPage(newPage);
-    setRowsPerPage(newRows);
-  }} className="mt-3 p-2 bg-indigo-100" />
+          onPageChange={ onPageChange } className="mt-3 p-2 bg-indigo-100" />
         </div> 
     </>
   );

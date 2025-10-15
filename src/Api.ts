@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { Artwork } from '../types/artwork';
+// import { Artwork } from '../types/artwork';
 
-
+import type { Artwork } from './Artwork';
+//  'Artwork' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.ts(1484)
 const BASE_URL = 'https://api.artic.edu/api/v1/artworks';
 
 
