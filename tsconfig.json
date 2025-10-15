@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "strict": false,
+    "skipLibCheck": true
+  },
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
